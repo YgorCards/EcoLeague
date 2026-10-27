@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-eco-50: #f5f7f2;
+  --color-eco-700: #28794c;
+  --font-sans: 'DM Sans', sans-serif;
+  --font-display: Manrope, sans-serif;
+}
+
+@layer base {
+  html { font-family: var(--font-sans); }
+  body { min-width: 320px; min-height: 100vh; margin: 0; background: var(--color-eco-50); color: #2d3c31; }
+  button { cursor: pointer; font: inherit; }
+  button:focus-visible { outline: 3px solid #98c79b; outline-offset: 2px; }
+}
