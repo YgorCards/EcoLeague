@@ -1,7 +1,7 @@
 import { ArrowRight, Plus, Recycle, Trophy } from 'lucide-react';
 import PageHeading from '../components/PageHeading';
 
-export default function Dashboard({ xp, level, rank, progress, totalItems, activity, onRegister, onNavigate }) {
+export default function Dashboard({ xp, level, rank, progress, totalItems, activity, profile, onRegister, onNavigate }) {
   const todayActivity = activity.filter((item) => item.when === 'Hoje' || item.when.startsWith('Hoje,') || item.when === 'Agora mesmo');
   const todayItems = todayActivity.reduce((sum, item) => sum + item.amount, 0);
   const todayPoints = todayActivity.reduce((sum, item) => sum + item.points, 0);
@@ -16,7 +16,10 @@ export default function Dashboard({ xp, level, rank, progress, totalItems, activ
       <section className="relative mb-[14px] flex min-h-[209px] items-center overflow-hidden rounded-[13px] bg-[#19432e] px-[27px] py-6 text-white max-[720px]:min-h-[254px] max-[720px]:items-start max-[720px]:px-[17px] max-[720px]:py-[19px]">
         <div className="relative z-[2] w-full max-w-[660px]">
           <p className="mb-2 text-[13px] font-semibold tracking-[.4px] text-[#c5d6c4]">SEU PERFIL</p>
-          <h2 className="m-0 font-display text-[25px] font-semibold leading-tight tracking-[-.5px] max-[720px]:text-[22px]">Ana Oliveira</h2>
+          <div className="flex items-center gap-3">
+            {profile?.avatar ? <img src={profile.avatar} alt="" className="size-11 rounded-full border border-white/20 object-cover" /> : <span className="grid size-11 place-items-center rounded-full bg-white/15 text-sm font-bold">{(profile?.name || 'Ana Oliveira').trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase()).join('')}</span>}
+            <h2 className="m-0 font-display text-[25px] font-semibold leading-tight tracking-[-.5px] max-[720px]:text-[22px]">{profile?.name || 'Ana Oliveira'}</h2>
+          </div>
           <div className="mt-2 flex items-baseline gap-2"><strong className="font-display text-[34px] font-bold tracking-[-1px] max-[720px]:text-[30px]">{xp.toLocaleString('pt-BR')}</strong><span className="text-sm text-[#d4e2d0]">EcoPoints</span></div>
           <div className="mt-[10px] flex flex-wrap items-center gap-2 text-[12px] text-[#d4e2d0]"><span className="font-semibold text-white">Resumo de hoje</span><span className="text-[#89a88b]">·</span><span>{todayItems} {todayItems === 1 ? 'item reciclado' : 'itens reciclados'}</span><span className="text-[#89a88b]">·</span><span>+{todayPoints} XP</span></div>
           <button className="mt-[14px] flex h-[38px] items-center justify-center gap-[7px] rounded-lg border-0 bg-[#f3f7f0] px-[14px] text-xs font-semibold text-[#245237] hover:bg-white" onClick={onRegister}><Plus size={17} /> Registrar reciclagem</button>
