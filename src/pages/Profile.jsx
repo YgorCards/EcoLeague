@@ -8,13 +8,13 @@ const achievements = [
   { icon: '🏆', title: 'No pódio', description: 'Entre nos 3 primeiros do ranking', unlocked: true },
 ];
 
-export default function Profile({ xp, level, totalItems, activity }) {
+export default function Profile({ xp, level, totalItems, activity, profile }) {
   return (
     <>
       <PageHeading eyebrow="SUA JORNADA VERDE" title="Meu perfil" description="Cada registro conta uma parte da sua história." />
       <section className="flex items-center gap-[14px] rounded-xl border border-[#edf0eb] bg-white p-5 max-[720px]:flex-wrap max-[720px]:gap-[10px] max-[720px]:p-[13px]">
-        <span className="grid size-[58px] shrink-0 place-items-center rounded-full bg-[#ede8f5] font-bold text-[#6d5c92] max-[720px]:size-12">AN</span>
-        <div className="min-w-0 flex-1"><h2 className="m-0 mb-[6px] font-display text-lg font-bold text-[#39473d] max-[720px]:text-sm">Ana Oliveira <em className="rounded bg-[#eff5e9] px-[6px] py-1 align-middle font-sans text-[9px] font-bold not-italic text-[#668449]">NÍVEL {level}</em></h2><p className="text-[11px] text-[#929d93] max-[720px]:text-[9px]">Guardiã da natureza · Membro desde setembro de 2026</p><small className="text-[11px] text-[#929d93] max-[720px]:text-[9px]">📍 São Paulo, SP　·　🏆 3º no ranking</small></div>
+        {profile?.avatar ? <img src={profile.avatar} alt="Foto de perfil" className="size-[58px] shrink-0 rounded-full object-cover max-[720px]:size-12" /> : <span className="grid size-[58px] shrink-0 place-items-center rounded-full bg-[#ede8f5] font-bold text-[#6d5c92] max-[720px]:size-12">{(profile?.name || 'Ana Oliveira').trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase()).join('')}</span>}
+        <div className="min-w-0 flex-1"><h2 className="m-0 mb-[6px] font-display text-lg font-bold text-[#39473d] max-[720px]:text-sm">{profile?.name || 'Ana Oliveira'} <em className="rounded bg-[#eff5e9] px-[6px] py-1 align-middle font-sans text-[9px] font-bold not-italic text-[#668449]">NÍVEL {level}</em></h2><p className="text-[11px] text-[#929d93] max-[720px]:text-[9px]">Guardiã da natureza · Membro desde setembro de 2026</p><small className="text-[11px] text-[#929d93] max-[720px]:text-[9px]">📍 São Paulo, SP　·　🏆 3º no ranking</small></div>
         <div className="grid w-[190px] gap-[6px] border-l border-[#e9eee7] pl-[18px] max-[720px]:grid-cols-[1fr_auto] max-[720px]:w-full max-[720px]:gap-[5px] max-[720px]:border-l-0 max-[720px]:border-t max-[720px]:pl-0 max-[720px]:pt-[10px]"><small className="text-[9px] text-[#929d93] max-[720px]:col-start-1">SEUS ECOPOINTS</small><strong className="font-display text-xl text-[#344239] max-[720px]:col-start-1">{xp.toLocaleString('pt-BR')} <span className="font-sans text-[11px] font-medium text-[#929d93]">XP</span></strong><div className="h-[5px] overflow-hidden rounded-full bg-[#e4ebe1] max-[720px]:col-start-2 max-[720px]:row-start-1 max-[720px]:w-[100px]"><i className="block h-full rounded-full bg-[#78b27b]" style={{ width: `${(xp % 1000) / 10}%` }} /></div><small className="text-[9px] text-[#929d93] max-[720px]:col-start-2 max-[720px]:text-right">{1000 - (xp % 1000)} XP até o próximo nível</small></div>
       </section>
       <section className="my-3 grid grid-cols-3 gap-3 max-[720px]:gap-[7px]">

@@ -35,7 +35,7 @@ export default function Sidebar({ page, setPage, xp, level, levelProgress, isOpe
         <div className="min-h-4 flex-1" />
         <nav className="grid gap-1 border-t border-[#eef1ec] pt-2" aria-label="Convites e configurações">
           <button className="flex h-[36px] items-center gap-3 rounded-lg px-[10px] text-left text-xs text-[#79857c] hover:bg-[#edf5eb]" onClick={() => notify('Convites para amigos estarão disponíveis em breve.')}><Users size={17} /><span className="flex-1">Convidar amigos</span><ChevronRight size={14} /></button>
-          <button className="flex h-[36px] items-center gap-3 rounded-lg px-[10px] text-left text-xs text-[#79857c] hover:bg-[#edf5eb]" onClick={() => notify('Configurações em breve')}><Settings size={17} /><span className="flex-1">Configurações</span></button>
+          <button className={`flex h-[36px] items-center gap-3 rounded-lg px-[10px] text-left text-xs text-[#79857c] hover:bg-[#edf5eb] ${page === 'Configurações' ? 'bg-[#edf5eb] font-bold text-[#337347]' : ''}`} onClick={() => { setPage('Configurações'); onClose(); }}><Settings size={17} /><span className="flex-1">Configurações</span></button>
         </nav>
       </aside>
       {isOpen && <button className="fixed inset-0 z-[15] border-0 bg-[#14251a77] min-[721px]:hidden" aria-label="Fechar menu" onClick={onClose} />}

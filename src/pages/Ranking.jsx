@@ -11,10 +11,16 @@ const teams = [
   { name: 'Raiz Forte', initials: '🌳', points: 7790 },
 ];
 
-export default function Ranking({ xp }) {
+export default function Ranking({ xp, profile }) {
   const [tab, setTab] = useState('Individual');
   const [period, setPeriod] = useState('Esta semana');
-  const individual = useMemo(() => players.map((player) => player.me ? { ...player, points: xp } : player).sort((a, b) => b.points - a.points), [xp]);
+  const individual = useMemo(() => players.map((player) => player.me ? {
+    ...player,
+    name: `Você · ${profile?.name || 'Ana Oliveira'}`,
+    initials: (profile?.name || 'Ana Oliveira').trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase()).join(''),
+    avatar: profile?.avatar || '',
+    points: xp,
+  } : player).sort((a, b) => b.points - a.points), [xp, profile?.name, profile?.avatar]);
   const entries = tab === 'Individual' ? individual : teams;
 
   function togglePeriod() {
@@ -47,7 +53,7 @@ export default function Ranking({ xp }) {
         <div className="flex items-end gap-[11px] pr-5 max-[720px]:absolute max-[720px]:inset-x-0 max-[720px]:bottom-0 max-[720px]:h-[136px] max-[720px]:justify-center max-[720px]:gap-3 max-[720px]:pr-0">
           {entries.slice(0, 3).map((player, index) => (
             <div className="flex w-[65px] flex-col items-center text-center max-[720px]:w-[76px]" key={player.name}>
-              <b className="grid size-[35px] place-items-center rounded-full bg-[#e2edda] text-[11px] text-[#568450]">{index === 0 ? '♛' : player.initials}</b>
+              {player.avatar ? <img src={player.avatar} alt="" className="size-[35px] rounded-full object-cover" /> : <b className="grid size-[35px] place-items-center rounded-full bg-[#e2edda] text-[11px] text-[#568450]">{index === 0 ? '♛' : player.initials}</b>}
               <span className="my-1 text-[10px] text-[#e7eee4]">{player.name.split(' ')[0]}</span>
               <small className="text-[9px] text-[#e7eee4]">{player.points.toLocaleString('pt-BR')} XP</small>
               <i className={`mt-[6px] h-12 w-full relative rounded-t-[5px] bg-[#9dbb7e] pt-[7px] font-display after:absolute after:inset-x-0 after:top-full after:h-[22px] after:content-[''] text-base font-bold not-italic text-[#496b49] max-[720px]:h-[37px] ${index === 0 ? 'h-[68px] bg-[#c0d696] after:bg-[#c0d696] max-[720px]:h-[51px]' : index === 1 ? 'bg-[#829d73] text-white after:bg-[#829d73]' : 'h-[34px] bg-[#708e67] text-white after:bg-[#708e67] max-[720px]:h-[30px]'}`}>{index + 1}</i>
@@ -68,7 +74,7 @@ export default function Ranking({ xp }) {
         {entries.map((entry, index) => (
           <div className={`grid min-h-[45px] grid-cols-[.6fr_2.2fr_1fr_.75fr] items-center border-b border-[#f0f2ef] px-2 py-[7px] text-[11px] text-[#768276] last:border-0 max-[720px]:min-h-[44px] max-[720px]:grid-cols-[.38fr_1.75fr_.85fr] max-[720px]:px-[3px] max-[720px]:text-[10px] ${entry.me ? 'rounded-lg bg-[#f6faf4]' : ''}`} key={entry.name}>
             <span className={index < 3 ? 'text-[#b78463]' : ''}>{String(index + 1).padStart(2, '0')}</span>
-            <span className="flex min-w-0 items-center gap-2 max-[720px]:gap-[5px]"><i className="grid size-[27px] shrink-0 place-items-center rounded-full bg-[#e6efe2] text-[10px] not-italic text-[#59815b] max-[720px]:size-6">{entry.initials}</i><strong className="overflow-hidden text-ellipsis whitespace-nowrap text-[11px] font-semibold text-[#506052] max-[720px]:text-[10px]">{entry.name}</strong>{entry.me && <em className="rounded bg-[#e8f2e4] px-[5px] py-[3px] text-[8px] not-italic text-[#5f9163]">VOCÊ</em>}</span>
+            <span className="flex min-w-0 items-center gap-2 max-[720px]:gap-[5px]">{entry.me && entry.avatar ? <img src={entry.avatar} alt="" className="size-[27px] shrink-0 rounded-full object-cover max-[720px]:size-6" /> : <i className="grid size-[27px] shrink-0 place-items-center rounded-full bg-[#e6efe2] text-[10px] not-italic text-[#59815b] max-[720px]:size-6">{entry.initials}</i>}<strong className="overflow-hidden text-ellipsis whitespace-nowrap text-[11px] font-semibold text-[#506052] max-[720px]:text-[10px]">{entry.name}</strong>{entry.me && <em className="rounded bg-[#e8f2e4] px-[5px] py-[3px] text-[8px] not-italic text-[#5f9163]">VOCÊ</em>}</span>
             <strong className="whitespace-nowrap text-[#465646]">{entry.points.toLocaleString('pt-BR')} <small className="text-[9px] font-normal text-[#9aa49a]">XP</small></strong><span className="text-[#65a06d] max-[720px]:hidden">↗ {320 - index * 34}</span>
           </div>
         ))}
