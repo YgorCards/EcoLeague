@@ -1,12 +1,13 @@
-import { Activity, BarChart3, ChevronRight, Recycle, Settings, Trophy, Users } from 'lucide-react';
+import { BarChart3, ChevronRight, Recycle, Settings, Trophy, Users } from 'lucide-react';
 
 const navigation = [
   { label: 'Início', icon: BarChart3 },
   { label: 'Ranking', icon: Trophy, badge: '3º' },
   { label: 'Meu perfil', icon: Users },
+  { label: 'Grupos', icon: Users },
 ];
 
-export default function Sidebar({ page, setPage, xp, level, levelProgress, isOpen, onClose, notify }) {
+export default function Sidebar({ page, setPage, xp, level, levelProgress, isOpen, onClose, onInviteFriends }) {
   return (
     <>
       <aside className={`fixed inset-y-0 left-0 z-20 flex w-[248px] flex-col border-r border-[#e9eee7] bg-white px-[17px] py-[27px] pb-[14px] max-[1100px]:w-[220px] max-[720px]:w-[84vw] max-[720px]:max-w-[290px] max-[720px]:-translate-x-full max-[720px]:p-4 max-[720px]:py-[22px] max-[720px]:pb-[13px] max-[720px]:shadow-[12px_0_35px_#1f322015] max-[720px]:transition-transform ${isOpen ? 'max-[720px]:translate-x-0' : ''}`}>
@@ -34,7 +35,7 @@ export default function Sidebar({ page, setPage, xp, level, levelProgress, isOpe
 
         <div className="min-h-4 flex-1" />
         <nav className="grid gap-1 border-t border-[#eef1ec] pt-2" aria-label="Convites e configurações">
-          <button className="flex h-[36px] items-center gap-3 rounded-lg px-[10px] text-left text-xs text-[#79857c] hover:bg-[#edf5eb]" onClick={() => notify('Convites para amigos estarão disponíveis em breve.')}><Users size={17} /><span className="flex-1">Convidar amigos</span><ChevronRight size={14} /></button>
+          <button className="flex h-[36px] items-center gap-3 rounded-lg px-[10px] text-left text-xs text-[#79857c] hover:bg-[#edf5eb]" onClick={() => { onInviteFriends(); onClose(); }}><Users size={17} /><span className="flex-1">Convidar amigos</span><ChevronRight size={14} /></button>
           <button className={`flex h-[36px] items-center gap-3 rounded-lg px-[10px] text-left text-xs text-[#79857c] hover:bg-[#edf5eb] ${page === 'Configurações' ? 'bg-[#edf5eb] font-bold text-[#337347]' : ''}`} onClick={() => { setPage('Configurações'); onClose(); }}><Settings size={17} /><span className="flex-1">Configurações</span></button>
         </nav>
       </aside>
