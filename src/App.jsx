@@ -15,6 +15,9 @@ export default function App() {
     try { return { ...defaultProfile, ...JSON.parse(localStorage.getItem('ecoleague-profile') || '{}') }; }
     catch { return defaultProfile; }
   });
+  useEffect(() => {
+    document.documentElement.dataset.theme = profile.theme === 'dark' ? 'dark' : 'light';
+  }, [profile.theme]);
   const [page, setPage] = useState('Início');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
