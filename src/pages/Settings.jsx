@@ -58,14 +58,14 @@ export default function Settings({ profile, onChange, onSave, notify }) {
       <section className="mb-4 rounded-xl border border-[#edf0eb] bg-white p-5 max-[720px]:p-[14px]" aria-labelledby="appearance-title">
         <div className="mb-4 flex items-center gap-3 border-b border-[#f0f2ef] pb-4">
           <span className="grid size-9 place-items-center rounded-[10px] bg-[#f2f0f8] text-[#756792]"><Sun size={18} /></span>
-          <div><h2 id="appearance-title" className="m-0 font-display text-[15px] font-bold text-[#39473d]">Aparência</h2><p className="m-0 mt-1 text-[11px] text-[#96a097]">Escolha sua preferência para quando os temas estiverem disponíveis.</p></div>
+          <div><h2 id="appearance-title" className="m-0 font-display text-[15px] font-bold text-[#39473d]">Aparência</h2><p className="m-0 mt-1 text-[11px] text-[#96a097]">Escolha entre o tema claro e o tema escuro.</p></div>
         </div>
         <div className="grid max-w-[520px] grid-cols-2 gap-3 max-[430px]:grid-cols-1">
           {[{ value: 'light', label: 'Claro', icon: Sun }, { value: 'dark', label: 'Escuro', icon: Moon }].map(({ value, label, icon: Icon }) => (
             <button key={value} type="button" aria-pressed={profile.theme === value} onClick={() => onChange({ ...profile, theme: value })} className={`flex h-12 items-center gap-3 rounded-lg border px-3 text-left text-xs font-semibold transition-colors ${profile.theme === value ? 'border-[#8fba91] bg-[#f1f7ef] text-[#3e7548]' : 'border-[#e7ebe4] bg-white text-[#778178] hover:bg-[#fafbf9]'}`}><Icon size={17} /><span className="flex-1">{label}</span>{profile.theme === value && <Check size={16} />}</button>
           ))}
         </div>
-        <p className="mb-0 mt-3 flex items-center gap-1.5 text-[10px] text-[#9aa39b]"><Moon size={12} /> A troca de cores será ativada em uma atualização futura.</p>
+        <p className="mb-0 mt-3 flex items-center gap-1.5 text-[10px] text-[#9aa39b]"><Moon size={12} /> O tema escolhido é aplicado imediatamente.</p>
       </section>
 
       <section className="mb-5 flex items-center gap-3 rounded-xl border border-[#edf0eb] bg-white p-4 max-[720px]:p-[13px]">

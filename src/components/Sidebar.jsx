@@ -18,7 +18,7 @@ export default function Sidebar({ page, setPage, xp, level, levelProgress, isOpe
 
         <section className="mb-[26px] rounded-[11px] bg-[#f3f7f0] p-3" aria-label="Resumo de EcoPoints">
           <div className="flex items-center justify-between text-[11px] font-bold tracking-[.6px] text-[#829183]"><span>SEUS ECOPOINTS</span><span>✦</span></div>
-          <strong className="my-[9px] block font-display text-[24px] text-[#344239]">{xp.toLocaleString('pt-BR')} <small className="font-sans text-[11px] font-medium text-[#8c9b8e]">XP</small></strong>
+          <strong className="dark-stat-value my-[9px] block font-display text-[24px] text-[#344239]">{xp.toLocaleString('pt-BR')} <small className="font-sans text-[11px] font-medium text-[#8c9b8e]">XP</small></strong>
           <div className="mb-2 h-[5px] overflow-hidden rounded-full bg-[#e4ebe1]"><i className="block h-full rounded-full bg-[#78b27b]" style={{ width: `${levelProgress / 10}%` }} /></div>
           <div className="flex justify-between text-[10px] text-[#829183]"><span>Nível {level}</span><span>{levelProgress}/1.000 XP</span></div>
         </section>
